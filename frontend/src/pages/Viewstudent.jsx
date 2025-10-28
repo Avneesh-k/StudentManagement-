@@ -8,7 +8,7 @@ function Viewstudent() {
 
     const fetchStudent = async()=>{
         try {
-            const res = await axios.get(`http://localhost:3000/api/student/${id}`);
+            const res = await axios.get(`${import.meta.env.API_URL}/api/student/${id}`);
             console.log(res.data)
             setStudent(res.data)
         } catch (error) {

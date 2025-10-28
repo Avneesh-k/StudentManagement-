@@ -11,9 +11,7 @@ app.use(express.json());
 app.use(cors())
 
 app.use('/api/student',studentRoutes)
-app.get('/', (req, res) => {
-  res.send('Backend is running successfully 🚀');
-});
+
 
 try{
     mongoose.connect(process.env.MONGODB_URL)

@@ -8,7 +8,7 @@ function StudentList() {
 
   const fetchStudents = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/api/student/allstudents');
+      const res = await axios.get(`${import.meta.env.API_URL}/api/student/allstudents`);
       setStudents(res.data);
     } catch (error) {
       console.error("Error while fetching students: " + error.message);
@@ -25,7 +25,7 @@ function StudentList() {
 
   const deletestudent = async (id)=>{
     try{
-      await axios.delete(`http://localhost:3000/api/student/${id}`);
+      await axios.delete(`${import.meta.env.API_URL}/api/student/${id}`);
       fetchStudents();
     }catch(error){
       console.error('Error deleting student:', error);
