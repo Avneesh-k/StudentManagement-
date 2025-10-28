@@ -18,7 +18,7 @@ function AddStudent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3000/api/student/addstudent', formData);
+      await axios.post('https://student-management-uj76.vercel.app/api/student/addstudent', formData);
       navigate('/'); // go back to list after adding
     } catch (error) {
       console.error('Error adding student:', error);
