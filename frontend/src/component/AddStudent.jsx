@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 function AddStudent() {
   const navigate = useNavigate();
-  const [formData, setFormdata] = useState({
+  const [formData, setFormData] = useState({
     name: '',
     email: '',
     course: '',
@@ -12,16 +12,19 @@ function AddStudent() {
   });
 
   const handleChange = (e) => {
-    setFormdata({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${import.meta.env.API_URL}/api/student/addstudent`, formData);
-      navigate('/'); // go back to list after adding
+      // ✅ Use correct environment variable
+      const API_URL = import.meta.env.VITE_API_URL;
+
+      await axios.post(`${API_URL}/api/student/addstudent`, formData);
+      navigate('/'); // go back to student list
     } catch (error) {
-      console.error('Error adding student:', error);
+      console.error('Error adding student:', error.message);
       alert('Failed to add student');
     }
   };
@@ -65,7 +68,7 @@ function AddStudent() {
             type="text"
             name="rollno"
             placeholder="Enter roll number"
-            value={formData.roll_no}
+            value={formData.rollno} // ✅ corrected
             onChange={handleChange}
             className="w-full p-2 border rounded-md mb-3"
             required

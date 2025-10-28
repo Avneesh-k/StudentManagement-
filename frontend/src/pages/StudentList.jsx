@@ -6,9 +6,12 @@ function StudentList() {
   const [students, setStudents] = useState([]);
   const navigate = useNavigate();
 
+  // ✅ Import API URL from environment variables
+  const API_URL = import.meta.env.VITE_API_URL;
+
   const fetchStudents = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.API_URL}/api/student/allstudents`);
+      const res = await axios.get(`${API_URL}/api/student/allstudents`);
       setStudents(res.data);
     } catch (error) {
       console.error("Error while fetching students: " + error.message);
@@ -19,19 +22,19 @@ function StudentList() {
     navigate('/add-student');
   };
 
-  const Viewstudent =(id)=>{
+  const Viewstudent = (id) => {
     navigate(`/view-student/${id}`);
-  }
+  };
 
-  const deletestudent = async (id)=>{
-    try{
-      await axios.delete(`${import.meta.env.API_URL}/api/student/${id}`);
+  const deletestudent = async (id) => {
+    try {
+      await axios.delete(`${API_URL}/api/student/${id}`);
       fetchStudents();
-    }catch(error){
-      console.error('Error deleting student:', error);
+    } catch (error) {
+      console.error('Error deleting student:', error.message);
       alert('Failed to delete student');
     }
-  }
+  };
 
   useEffect(() => {
     fetchStudents();
@@ -62,10 +65,16 @@ function StudentList() {
               {student.name}
             </span>
             <div className="space-x-3">
-              <button onClick={()=> Viewstudent(student._id)} className="px-3 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all">
+              <button
+                onClick={() => Viewstudent(student._id)}
+                className="px-3 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all"
+              >
                 View
               </button>
-              <button onClick={() => deletestudent(student._id)} className="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all">
+              <button
+                onClick={() => deletestudent(student._id)}
+                className="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all"
+              >
                 Delete
               </button>
             </div>
